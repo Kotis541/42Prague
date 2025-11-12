@@ -6,7 +6,7 @@
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:04:44 by vokotera          #+#    #+#             */
-/*   Updated: 2025/11/11 13:32:46 by vokotera         ###   ########.fr       */
+/*   Updated: 2025/11/12 09:47:59 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	size_t			i;
 	unsigned char	*ptr;
 
-
 	ptr = (unsigned char *)s;
 	i = 0;
 	while (i < n)
@@ -27,11 +26,4 @@ void	*ft_memchr(const void *s, int c, size_t n)
 		i++;
 	}
 	return (NULL);
-}
-
-int main()
-{
-	char data[] = {10, 20, 30, 40};
-	char *res = ft_memchr(data, 20, 3);
-	printf("%d", *res);
 }

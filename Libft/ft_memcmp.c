@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 09:02:01 by vokotera          #+#    #+#             */
-/*   Updated: 2025/11/12 11:49:13 by vokotera         ###   ########.fr       */
+/*   Created: 2025/11/12 09:26:15 by vokotera          #+#    #+#             */
+/*   Updated: 2025/11/12 09:47:43 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t	i;
-	size_t	len;
+	size_t			i;
+	unsigned char	*src1;
+	unsigned char	*src2;
 
+	if (n == 0)
+		return (0);
 	i = 0;
-	len = 0;
-	len = ft_strlen(src);
-	if (size > 0)
+	src1 = (unsigned char *)s1;
+	src2 = (unsigned char *)s2;
+	if (n > 0)
 	{
-		while (src[i] || i < size - 1)
-		{
-			dst[i] = src[i];
+		while (i < n - 1 && src1[i] == src2[i])
 			i++;
-		}
-		dst[i] = '\0';
 	}
-	return (len);
+	return (src1[i] - src2[i]);
 }

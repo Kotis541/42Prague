@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 09:02:01 by vokotera          #+#    #+#             */
-/*   Updated: 2025/11/12 11:49:13 by vokotera         ###   ########.fr       */
+/*   Created: 2025/11/12 13:01:29 by vokotera          #+#    #+#             */
+/*   Updated: 2025/11/12 13:24:16 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	i;
-	size_t	len;
+	void			*ptr;
+	unsigned char	*p;
+	size_t			i;
+	size_t			total_size;
 
+	if (size == 0 || nmemb == 0)
+		return (malloc(0));
+	total_size = nmemb * size;
+	ptr = malloc(total_size);
+	if (!ptr)
+		return (NULL);
+	p = (unsigned char *)ptr;
 	i = 0;
-	len = 0;
-	len = ft_strlen(src);
-	if (size > 0)
-	{
-		while (src[i] || i < size - 1)
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (len);
+	while (i < total_size)
+		p[i++] = 0;
+	return (ptr);
 }
