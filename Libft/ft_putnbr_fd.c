@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/14 08:58:14 by vokotera          #+#    #+#             */
-/*   Updated: 2025/11/14 08:58:15 by vokotera         ###   ########.fr       */
+/*   Created: 2025/11/14 14:33:17 by vokotera          #+#    #+#             */
+/*   Updated: 2025/11/14 14:54:12 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*arr;
-	size_t	i;
-	size_t	s_len;
+	long	nbr;
+	char	res;
 
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (start + len > s_len)
-		len = s_len - start;
-	arr = malloc(len + 1);
-	if (!arr)
-		return (NULL);
-	i = 0;
-	while (i < len)
+	nbr = n;
+	res = 0;
+	if (nbr < 0)
 	{
-		arr[i] = s[start + i];
-		i++;
+		write(fd, "-", 1);
+		nbr *= -1;
 	}
-	arr[i] = '\0';
-	return (arr);
+	if (nbr >= 10)
+		ft_putnbr_fd(nbr / 10, fd);
+	res = (nbr % 10) + '0';
+	write(fd, &res, 1);
 }
