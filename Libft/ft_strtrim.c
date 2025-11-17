@@ -39,6 +39,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	end = ft_strlen(s1) - 1;
 	while (is_in_set(s1[start], set))
 		start++;
+	if (start > end)
+		return (ft_strdup(""));
 	while (is_in_set(s1[end], set))
 		end--;
 	if (start > end)
