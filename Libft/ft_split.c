@@ -55,7 +55,6 @@ static void	free_result(char **result, int i)
 	free(result);
 }
 
-
 char	**ft_split(char const *s, char c)
 {
 	char	**result;
