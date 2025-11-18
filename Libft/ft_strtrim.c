@@ -37,13 +37,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(""));
 	start = 0;
 	end = ft_strlen(s1) - 1;
-	while (is_in_set(s1[start], set))
+	while (start < end + 1 && is_in_set(s1[start], set))
 		start++;
-	if (start > end)
-		return (ft_strdup(""));
-	while (is_in_set(s1[end], set))
+	while (end > start && is_in_set(s1[end], set))
 		end--;
-	if (start > end)
+	if (start >= end + 1 || is_in_set(s1[start], set))  // Celý string je ze set
 		return (ft_strdup(""));
 	arr = malloc(end - start + 2);
 	if (!arr)
