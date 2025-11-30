@@ -23,6 +23,18 @@ static int	solve(va_list *args, char format)
 		count += printstr(va_arg(*args, char *));
 	else if (format == 'p')
 		count += printptr(va_arg(*args, void *));
+	else if (format == 'd')
+		count += printdecimal(va_arg(*args, int));
+	else if (format == 'i')
+		count += printdecimal(va_arg(*args, int));
+	else if (format == 'u')
+		count += print_unsigned(va_arg(*args, unsigned int));
+	else if (format == 'x')
+		count += tohex(va_arg(*args, unsigned int), 0);
+	else if (format == 'X')
+		count += tohex(va_arg(*args, unsigned int), 1);
+	else if (format == '%')
+		count += printchar('%');
 	return (count);
 }
 
@@ -30,27 +42,21 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int		count;
-
+ 
 	va_start(args, format);
 	count = 0;
 	while (*format)
 	{
-		if (*format == '%' && *(format + 1))
+		if (*format == '%')
 		{
 			format++;
-			count += solve(&args, *format);
-			format++;
-			continue ;
+			if (*format)
+				count += solve(&args, *format);
 		}
-		count += printchar(*format);
+		else
+			count += printchar(*format);
 		format++;
 	}
 	va_end(args);
 	return (count);
-}
-
-int main()
-{
-	printf("%d\n", ft_printf("ahoj %s", "cau"));
-	printf("%d\n", printf("ahoj %s", "cau"));
 }

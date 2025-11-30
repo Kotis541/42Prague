@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   printptr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/27 15:48:15 by vokotera          #+#    #+#             */
-/*   Updated: 2025/11/27 16:35:27 by vokotera         ###   ########.fr       */
+/*   Created: 2025/11/27 16:33:35 by vokotera          #+#    #+#             */
+/*   Updated: 2025/11/27 16:33:49 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <stdio.h>
-# include <unistd.h>
+int	printptr(void *ptr)
+{
+	int	count;
+	uintptr_t	addr;
 
-int	printchar(int c);
-int	ft_printf(const char *format, ...);
-int	printstr(const char *s);
-int	printptr(void *ptr);
-
-#endif
+	count = 0;
+	if (ptr == NULL)
+		return (printstr("(nil)"));
+	addr = (uintptr_t)ptr;
+	count += printstr("0x");
+	count += tohex(addr, 0);
+	return (count);
+}

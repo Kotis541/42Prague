@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printptr.c                                         :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/27 16:33:35 by vokotera          #+#    #+#             */
-/*   Updated: 2025/11/27 16:33:49 by vokotera         ###   ########.fr       */
+/*   Created: 2025/11/27 15:48:15 by vokotera          #+#    #+#             */
+/*   Updated: 2025/11/27 16:35:27 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	printptr(void *ptr)
-{
-	int	count;
-	int	addr;
+# include <stdarg.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdint.h> 
 
-	count = 0;
-	addr = (int) ptr;
-	count += printstr("0x");
-	count += tohex(addr);
-	return (count);
-}
+int	printchar(int c);
+int	ft_printf(const char *format, ...);
+int	printstr(const char *s);
+int	printptr(void *ptr);
+int tohex(uintptr_t decimal, int uppercase);
+int	printdecimal(long n);
+int	print_unsigned(unsigned long n);
+
+#endif
