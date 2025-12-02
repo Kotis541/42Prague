@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   printstr.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/01 16:04:31 by vokotera          #+#    #+#             */
+/*   Updated: 2025/12/01 16:17:47 by vokotera         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	printstr(const char *s)
 {
-	int len;
+	int	len;
 
 	if (s == NULL)
 	{
@@ -12,9 +24,13 @@ int	printstr(const char *s)
 	len = 0;
 	while (*s)
 	{
-		printchar(*s);
-		s++;
-		len++;
+		if (printchar(*s))
+		{
+			s++;
+			len++;
+		}
+		else
+			return (-1);
 	}
 	return (len);
 }

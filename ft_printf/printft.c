@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printft_test.c                                     :+:      :+:    :+:   */
+/*   printft.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:48:54 by vokotera          #+#    #+#             */
-/*   Updated: 2025/11/27 16:31:18 by vokotera         ###   ########.fr       */
+/*   Updated: 2025/12/02 08:49:20 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	solve(va_list *args, char format)
 		count += tohex(va_arg(*args, unsigned int), 1);
 	else if (format == '%')
 		count += printchar('%');
+	else
+		count += printchar('%') + printchar(format);
 	return (count);
 }
 
@@ -42,7 +44,7 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int		count;
- 
+
 	va_start(args, format);
 	count = 0;
 	while (*format)
@@ -52,6 +54,11 @@ int	ft_printf(const char *format, ...)
 			format++;
 			if (*format)
 				count += solve(&args, *format);
+			else
+			{
+				count += printchar('%');
+				break ;
+			}
 		}
 		else
 			count += printchar(*format);

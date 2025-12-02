@@ -1,5 +1,5 @@
 NAME = libftprintf.a
-CC = gcc -Wall -Werror -Wextra
+CC = cc -Wall -Werror -Wextra
 SRCS = printft.c print_unsigned.c printchar.c printdecimal.c printptr.c printstr.c tohex.c
 OBJ = $(SRCS:.c=.o)
 

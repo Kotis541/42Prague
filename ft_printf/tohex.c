@@ -1,18 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tohex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/01 16:05:31 by vokotera          #+#    #+#             */
+/*   Updated: 2025/12/01 16:05:37 by vokotera         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int tohex(uintptr_t decimal, int uppercase)
+int	tohex(uintptr_t decimal, int uppercase)
 {
-	char	*hex_lower = "0123456789abcdef";
-	char	*hex_upper = "0123456789ABCDEF";
 	char	buff[20];
 	int		count;
 	int		i;
 	char	*hex_digits;
 
 	if (uppercase)
-		hex_digits = hex_upper;
-	else 
-		hex_digits = hex_lower;
+		hex_digits = "0123456789ABCDEF";
+	else
+		hex_digits = "0123456789abcdef";
 	if (decimal == 0)
 		return (write(1, "0", 1));
 	i = 0;

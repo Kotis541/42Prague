@@ -6,7 +6,7 @@
 /*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 16:33:35 by vokotera          #+#    #+#             */
-/*   Updated: 2025/11/27 16:33:49 by vokotera         ###   ########.fr       */
+/*   Updated: 2025/12/01 16:05:52 by vokotera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	printptr(void *ptr)
 {
-	int	count;
+	int			count;
 	uintptr_t	addr;
 
 	count = 0;
