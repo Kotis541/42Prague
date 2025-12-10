@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 09:20:00 by vokotera          #+#    #+#             */
-/*   Updated: 2025/12/02 11:20:06 by vokotera         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 #include <stdio.h>
 
 size_t	ft_strlen(const char *s)
 {
-	int	len;
+	size_t len;
 
 	len = 0;
 	while (s[len])
@@ -28,6 +16,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	char	*arr;
 	int		i;
 
+	if (!s1 || !s2)
+        return (NULL);
 	arr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!arr)
 		return (NULL);

@@ -1,47 +1,124 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vokotera <vokotera@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/01 16:28:28 by vokotera          #+#    #+#             */
-/*   Updated: 2025/12/02 13:24:24 by vokotera         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 #include <stdio.h>
-// #DEFINE BUFF_SIZE n
 
-int	read_from_file(int fd, char *stash)
+static char *append_to_stash(char *stash, char *buff)
 {
-	char	*buffer;
-	int		bytes_read;
+	char *temp;
 
-	buffer = malloc((BUFF_SIZE + 1) * sizeof(char));
-	if (!buffer)
+	 if (!stash)
+        return (ft_strdup(buff));
+	temp = stash;
+	stash = ft_strjoin(temp, buff);
+	free(temp);
+	return(stash);
+}
+
+
+static char	*fill_line_buffer(int fd, char *stash)
+{
+    char	*buff;
+    int		bytes_read;
+
+    buff = malloc(BUFFER_SIZE + 1);
+    if (!buff)
+        return (NULL);
+    bytes_read = 1;
+    while (bytes_read > 0)
+    {
+        bytes_read = read(fd, buff, BUFFER_SIZE);
+        if (bytes_read == -1)
+            return (free(buff), free(stash), NULL);
+        if (bytes_read == 0)
+            break;
+        buff[bytes_read] = '\0';
+		stash = append_to_stash(stash, buff);
+        if (!stash)
+            return (free(buff), NULL);
+        if (ft_strchr(buff, '\n'))
+            break;
+    }
+    free(buff);
+    return (stash);
+}
+
+char	*set_line(char *line_buffer)
+{
+	int	len;
+	int	i;
+	char	*buff;
+
+	len = 0;
+	while(line_buffer[len] && line_buffer[len] != '\n')
+		len++;
+	if (len == 0 && line_buffer[len] != '\n')
+        return (NULL);
+	buff = malloc(len + 2);
+	if (!buff)
 		return (NULL);
-	bytes_read = 1;
-	while (!ft_strchr(stash, '\n') && bytes_read != 0)
-	{
-		bytes_read = read(fd, buffer, BUFF_SIZE);
-		if (bytes_read == -1)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		buffer[bytes_read] = '\0';
-		stash = ft_strjoin(stash, buffer);
-	}
-	free(buffer);
-	return (stash);
+	i = -1;
+	while(++i < len)
+		buff[i] = line_buffer[i];
+	if (line_buffer[len] == '\n')
+        buff[i++] = '\n';
+	buff[i] = '\0';
+	return (buff);
 }
 
-
-char	*get_next_line(int fd)
+char	*clean_stash(char *newline, char *stash)
 {
-	static char	*arr;
-	
-	read(fd, arr);
+	size_t 	start;
+	char	*new_stash;
+
+	start = (newline - stash) + 1;
+	new_stash = ft_substr(stash, start, ft_strlen(stash) - start);
+	free (stash);
+	return (new_stash);
+
 }
+
+char *get_next_line(int fd)
+{
+	static char	*stash;
+	char		*line;
+	char 		*newline;
+
+	if (fd < 0 || BUFFER_SIZE <= 0 )
+		return (NULL);
+	stash = fill_line_buffer(fd, stash);
+	if (!stash)
+        return (NULL);
+	line = set_line(stash);
+	newline = ft_strchr(stash, '\n');
+	if (!newline)
+    {
+        free(stash);
+        stash = NULL;
+    }
+	else
+		stash = clean_stash(newline, stash);
+	return (line);
+}
+
+// int main() {
+//     int fd = open("big_line_no_nl.txt", O_RDONLY);
+//     char *line;
+//     int i = 1;
+
+//     if (fd == -1)
+//     {
+//         printf("Error opening file\n");
+//         return (1);
+//     }
+    
+//     while ((line = get_next_line(fd)) != NULL)
+//     {
+//         printf("Line %d: %s", i, line);
+//         free(line);
+//         i++;
+//     }
+    
+//     close(fd);
+//     printf("\n--- Testing finished ---\n");
+//     return (0);
+// }
+
